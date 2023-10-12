@@ -1,8 +1,9 @@
 import csv
 import json
+import uuid
 
 # initially, categorize statements as
-# * (I) can be law/important
+# * (Y) can be law/important
 # * (N) can't be law/not important
 # * (L)eft
 # * (R)ight
@@ -10,15 +11,15 @@ import json
 
 # select from 6 bins:
 
-# IL, IR, L, R, IM, IM, M, M, any, any
+# YL, YR, L, R, YC, YC, M, M, any, any
 
 probabilities = {
     "YL": 0.1,
     "YR": 0.1,
     "*L": 0.1,
     "*R": 0.1,
-    "YM": 0.2,
-    "*M": 0.2,
+    "YC": 0.2,
+    "*C": 0.2,
     "**": 0.2,
 }
 
@@ -43,7 +44,9 @@ with open('statements.csv', 'r') as csv_file:
             continue
         # Each row is a list of values
         data.append(row)
-        print(f"0: {row[0]}, 1: {row[1]}, 2: {row[2]}")
+headers.append("uuid")
+for row in data:
+    row.append(str(uuid.uuid4()))
 
 # Convert the data to a list of dictionaries
 table_dict_data = [dict(zip(headers, row)) for row in data]
@@ -61,4 +64,4 @@ print(json_data)
 
 # Optionally, write the JSON data to a file
 with open('statements.json', 'w') as json_file:
-    json.dump(table_dict_data, json_file, indent=2)
+    json.dump(all_data, json_file, indent=2)

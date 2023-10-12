@@ -1,0 +1,370 @@
+{
+  "statements": [
+    {
+      "actionable": "n",
+      "group_label": "l",
+      "votes": "0",
+      "statement": "A large fraction of mass shooting deaths in the U.S. were caused by assault rifles",
+      "uuid": "8b816988-a233-4905-af16-8053de2e8cbe"
+    },
+    {
+      "actionable": "y",
+      "group_label": "l",
+      "votes": "0",
+      "statement": "All assault weapons should be banned. Exceptions could be made for military and law enforcement.",
+      "uuid": "d8447f62-c8e4-4b05-8b34-84a947b2c260"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "An assault weapon ban should allow current owners to keep their weapons, but they should be prohibited from selling or transferring them to others",
+      "uuid": "cbd20c8e-9021-47e5-8264-03387affb943"
+    },
+    {
+      "actionable": "n",
+      "group_label": "r",
+      "votes": "0",
+      "statement": "Any adult should be able to buy an assault weapon",
+      "uuid": "fe4e01b5-a447-4a11-8efb-33c995093295"
+    },
+    {
+      "actionable": "n",
+      "group_label": "l",
+      "votes": "0",
+      "statement": "Arguments or confrontations can become deadly when assault weapons are involved",
+      "uuid": "bbfcf280-c9d1-43f1-a7ea-3a5b43fe623d"
+    },
+    {
+      "actionable": "n",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "Assault weapons are difficult to define",
+      "uuid": "fed559ec-9a3f-4733-a199-9e2e48f66220"
+    },
+    {
+      "actionable": "n",
+      "group_label": "r",
+      "votes": "0",
+      "statement": "Assault weapons are essential for personal protection and home defense",
+      "uuid": "e9699134-46b8-4f3a-b705-3c160155b5e1"
+    },
+    {
+      "actionable": "n",
+      "group_label": "l",
+      "votes": "0",
+      "statement": "Assault weapons are not necessary for most sporting or hunting purposes",
+      "uuid": "db2e2216-4c85-49ab-a71c-d147dd8023c9"
+    },
+    {
+      "actionable": "n",
+      "group_label": "r",
+      "votes": "0",
+      "statement": "Assault weapons are used in a small number of overall gun crimes",
+      "uuid": "22c606e4-1b87-439d-93f3-26931da41d0d"
+    },
+    {
+      "actionable": "n",
+      "group_label": "l",
+      "votes": "0",
+      "statement": "Assault weapons in the hands of extremists are a significant threat to national security",
+      "uuid": "c05a4477-3e09-499a-bb30-ae94d0fdeaff"
+    },
+    {
+      "actionable": "n",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "Enforcing restrictions on assault weapons will be difficult",
+      "uuid": "86a622bd-11a3-4aec-924a-c9587b822c04"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "Every person owning or using an assault weapon should carry a license or a permit",
+      "uuid": "e0c56b1b-9e53-47e5-9129-f99b78de46d5"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "Every person owning or using an assault weapon should pass a background check",
+      "uuid": "303accb9-5a6a-406b-b891-1db8fae8ddfa"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "I support \"red flag laws\" that allow family members or law enforcement to request the temporary removal of guns from individuals who might pose a threat to themselves or others",
+      "uuid": "500ecae2-078f-477a-bc7c-b47ace45ceb3"
+    },
+    {
+      "actionable": "y",
+      "group_label": "l",
+      "votes": "0",
+      "statement": "I support a required buyback program for assault weapons",
+      "uuid": "66747ae8-7a50-4f68-8dab-3d67be294afa"
+    },
+    {
+      "actionable": "y",
+      "group_label": "l",
+      "votes": "0",
+      "statement": "I support a rigorous background check process specifically for assault weapon purchases",
+      "uuid": "34499d12-49c7-4e0a-85e0-1b16c3dcc6f5"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "I support a voluntary buyback program for assault weapons",
+      "uuid": "b12833bc-e4c1-4c38-be58-f82782d62c2b"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "I support banning or restricting the sale of high-capacity magazines",
+      "uuid": "d3bb1685-997f-4901-ab7e-e4f984a18ae0"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "I support higher taxes or fees on the sale of assault weapons",
+      "uuid": "e75e015e-6de0-4627-a011-f805b114f79b"
+    },
+    {
+      "actionable": "y",
+      "group_label": "r",
+      "votes": "0",
+      "statement": "I support investing in mental health care to ensure that people have access to the services they need",
+      "uuid": "1f9f248e-70e9-4760-b52a-082d14769388"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "I support limiting the number of assault weapons that are produced or imported each year",
+      "uuid": "abb09d4d-1bde-4072-ad06-8131362c2844"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "I support more research into gun violence to understand its causes and ways to reduce or prevent it",
+      "uuid": "b875f640-d1e5-465f-9d77-6e5b8c599680"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "I support regulating how assault weapons are marketed",
+      "uuid": "b3b6db35-5e8e-45dc-a4f0-6158de67f67b"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "I support required waiting periods between the purchase and possession of a gun",
+      "uuid": "d9da6da4-250a-42d0-8955-3f0a50805248"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "I support requiring gun owners to obtain a license showing they have passed a background check and received training in gun safety",
+      "uuid": "871b15dd-4ba7-4af2-9d0a-f1cfba2ba039"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "I support requiring special licensing for ownership of assault weapons",
+      "uuid": "a212cea3-bcb3-4186-ab81-ae31ac599806"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "I support requiring that assault weapons be stored securely",
+      "uuid": "4d263379-fa4a-461a-87b8-080ecd1684f4"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "I support requiring that guns be stored securely when not in use, such as in a safe or with a trigger lock",
+      "uuid": "d55d800d-58b8-4dda-a64e-aadee721e374"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "It is important to clearly define what is an \"assault weapon\"",
+      "uuid": "7e64e909-a991-4784-9e20-074697890b45"
+    },
+    {
+      "actionable": "n",
+      "group_label": "r",
+      "votes": "0",
+      "statement": "It should be easier to buy an assault weapon than it is to get a driver's license",
+      "uuid": "ced27155-5c0c-4acd-afec-f55c623193b4"
+    },
+    {
+      "actionable": "n",
+      "group_label": "r",
+      "votes": "0",
+      "statement": "Law-abiding citizens shouldn't be prevented from using assault weapons for sporting events and recreation because of the actions of a few individuals",
+      "uuid": "ffe1c1e9-b9c8-4b7e-85b7-91fef614407e"
+    },
+    {
+      "actionable": "n",
+      "group_label": "r",
+      "votes": "0",
+      "statement": "No assault weapons should be banned",
+      "uuid": "3c52be15-d4a5-4dee-87c9-f8e7e3f4b23b"
+    },
+    {
+      "actionable": "y",
+      "group_label": "l",
+      "votes": "0",
+      "statement": "Only police and military should be allowed to use assault weapons",
+      "uuid": "e2c35be1-feb4-47e8-8c87-164d543f0959"
+    },
+    {
+      "actionable": "n",
+      "group_label": "r",
+      "votes": "0",
+      "statement": "Passing assault weapon restrictions will delay improvements in mental health treatment for those who need it",
+      "uuid": "12c772cc-6508-4f4a-af80-a9143d122ce8"
+    },
+    {
+      "actionable": "n",
+      "group_label": "r",
+      "votes": "0",
+      "statement": "Previous assault weapons bans did not reduce crime or mass shootings",
+      "uuid": "b12f046f-ba55-443b-b8b3-3a3c19fd25ea"
+    },
+    {
+      "actionable": "n",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "Regulating assault weapons will keep police officers safer",
+      "uuid": "85f32411-b27c-4db8-b243-66fa3e3c00a8"
+    },
+    {
+      "actionable": "n",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "Regulating assault weapons will prevent fatal accidental shootings",
+      "uuid": "1a933f38-5dea-48b4-b7d6-0525a88bc2b7"
+    },
+    {
+      "actionable": "n",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "Regulating assault weapons will reduce gang-related violence",
+      "uuid": "972caf9b-aa17-4233-bb7a-0ad2c2ab3b95"
+    },
+    {
+      "actionable": "n",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "Regulating assault weapons will reduce the accidental shootings of children",
+      "uuid": "d9fef8b7-4a6f-402f-be15-d7ff8a44c666"
+    },
+    {
+      "actionable": "n",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "Regulating assault weapons will reduce the number of injuries and fatalities in gun-related incidents",
+      "uuid": "6d0af06b-c49b-4660-b4ff-2da1f9a9ac43"
+    },
+    {
+      "actionable": "n",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "Regulating assault weapons will reduce the number of mass shooting fatalities",
+      "uuid": "fa83c945-aeee-469b-9c47-4a5c18365cc4"
+    },
+    {
+      "actionable": "n",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "Regulating assault weapons will reduce the success rate of suicide attempts",
+      "uuid": "ff6d53bf-de35-40d0-8ba4-4fce69e8a25a"
+    },
+    {
+      "actionable": "n",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "Regulating assault weapons will reduce their illegal sale and distribution",
+      "uuid": "456d0d19-69e2-4a79-9c78-8847cabe90fb"
+    },
+    {
+      "actionable": "n",
+      "group_label": "r",
+      "votes": "0",
+      "statement": "Restricting one type of firearm can lead to future restrictions on other types of firearms",
+      "uuid": "bfab73d1-55db-45d3-b00e-63d344dbf1a9"
+    },
+    {
+      "actionable": "n",
+      "group_label": "r",
+      "votes": "0",
+      "statement": "Restrictions on assault weapon ownership will harm the gun industry and lead to job losses",
+      "uuid": "e8d687f6-0555-4130-8d5d-46a0e7415be3"
+    },
+    {
+      "actionable": "y",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "Some assault weapons should be banned. Exceptions could be made for military and law enforcement.",
+      "uuid": "b3a8ea37-9190-412c-b829-25396cb25c0d"
+    },
+    {
+      "actionable": "n",
+      "group_label": "l",
+      "votes": "0",
+      "statement": "The presence of an assault weapon in a public confrontation increases the likelihood of escalation and therefore the likelihood of unnecessary injury and death.",
+      "uuid": "f49e9632-e3b2-4288-aa52-999ae5dfd02e"
+    },
+    {
+      "actionable": "n",
+      "group_label": "l",
+      "votes": "0",
+      "statement": "The presence of an assault weapon in public decreases the feeling of safety for all members in the public space.",
+      "uuid": "6709b9a1-305e-4fbc-983b-73c382862947"
+    },
+    {
+      "actionable": "n",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "The Second Amendment right to keep and bear Arms is limited. Some types of weapons can be prohibited.",
+      "uuid": "01646be4-f057-4428-a77e-47fc1b9796a2"
+    },
+    {
+      "actionable": "n",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "There is a link between the availability of assault weapons and increased gun violence",
+      "uuid": "eaad5e31-8e53-418d-a643-3f0f45d152eb"
+    },
+    {
+      "actionable": "n",
+      "group_label": "c",
+      "votes": "0",
+      "statement": "We can agree that our neighbors should not have nuclear weapons, mines, and rocket launchers; the line is _somewhere_, and assault weapons should be on that list.",
+      "uuid": "d3d73195-a9dc-49f7-8be5-77b10a930833"
+    }
+  ],
+  "probabilities": {
+    "YL": 0.1,
+    "YR": 0.1,
+    "*L": 0.1,
+    "*R": 0.1,
+    "YC": 0.2,
+    "*C": 0.2,
+    "**": 0.2
+  }
+}

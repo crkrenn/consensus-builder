@@ -1,12 +1,24 @@
+"""
+Module for statements
+"""
+
 # standard packages
 from abc import ABC, abstractmethod, abstractproperty
 import json
 from collections import defaultdict
 import random
-
+import logging
+import sys
 
 # third-party packages
 import jsonschema
+
+logging.basicConfig(level=logging.INFO)
+LOG = logging.getLogger(__name__)
+
+#@ TODO: separate user statement class and process statement class?
+#@ TODO: cache statement sets?
+#@ TODO: update votes in statement sets?
 
 class AbstractStatements(ABC):
     """Abstract class for statements"""
@@ -77,7 +89,7 @@ class Statements(AbstractStatements):
         }
     }
 
-    def validate_probability_keys(self):
+    def _validate_probability_keys(self):
         """Validate the probability keys"""
         keyset = set()
         for k in self.probabilities.keys():
@@ -92,7 +104,7 @@ class Statements(AbstractStatements):
             if k[1] != "*" and k[1] not in self.group_label_keys:
                 raise Exception(f"Probability key ({k}) must end with {self.group_label_keys}, or *")
 
-    def validate_statements_and_probabilities(self):
+    def _validate_statements_and_probabilities(self):
         """Validate the statements and probabilities"""
         try:
             jsonschema.validate(
@@ -108,14 +120,14 @@ class Statements(AbstractStatements):
         except jsonschema.exceptions.ValidationError as e:
             print(f"Error: The statements are invalid: {str(e)}")
             raise e
-        self.validate_probability_keys()
+        self._validate_probability_keys()
         total = 0
         for _, v in self.probabilities.items():
             total += v
         if total != 1:
             raise Exception("Probabilities must add up to 1")
 
-    def extract_actionable_keys(self):
+    def _extract_actionable_keys(self):
         """Extract the actionable keys"""
         keyset = set()
         for statement in self.statements:
@@ -123,7 +135,7 @@ class Statements(AbstractStatements):
         self.actionable_keys = list(keyset)
         self.actionable_keys.sort()
 
-    def extract_group_label_keys(self):
+    def _extract_group_label_keys(self):
         """Extract the group label keys"""
         keyset = set()
         for statement in self.statements:
@@ -131,7 +143,7 @@ class Statements(AbstractStatements):
         self.group_label_keys = list(keyset)
         self.group_label_keys.sort()
 
-    def build_statements_map(self):
+    def _build_statements_map(self):
         """Build the statement sets"""
         self.statements_map = defaultdict(list)
         for statement in self.statements:
@@ -142,6 +154,8 @@ class Statements(AbstractStatements):
             key = "*" + group_label_key
             self.statements_map[key].append(statement)
             key = actionable_key + "*"
+            self.statements_map[key].append(statement)
+            key = "**"
             self.statements_map[key].append(statement)
         for _, statement_set in self.statements_map.items():
             statement_set.sort(key=lambda x: x["votes"])
@@ -191,20 +205,53 @@ class Statements(AbstractStatements):
             data = json.load(file)
         self.statements = data["statements"]
         self.probabilities = data["probabilities"]
-        self.extract_actionable_keys()
-        self.extract_group_label_keys()
-        self.validate_statements_and_probabilities()
-        self.build_statements_map()
+        self._extract_actionable_keys()
+        self._extract_group_label_keys()
+        self._validate_statements_and_probabilities()
+        self._build_statements_map()
 
-    def select_statement(self, key):
-        """Pick a statement from a statement set"""
-        index = 0
-        while self.statements_map[key][index]["uuid"] in self.statement_uuid_list:
-            index += 1
-        return self.statements_map[key][index]
+    def clear_unique_statements_list(self):
+        """Clear the list of previously selected statements"""
+        self.statement_uuid_list = []
+        return True  # Indicate that the list has been cleared successfully
 
-    def build_statement_list(self, num_statements):
+    def select_next_statement(self, key, previous_uuid_list=None):
+        """Pick a new statement from a statement set"""
+        if previous_uuid_list is None:
+            previous_uuid_list = []
+
+        # Handle case if key is not in the statements_map
+        if key not in self.statements_map:
+            # Logic for key not found
+            return None
+
+        for statement in self.statements_map[key]:
+            if statement["uuid"] not in self.statement_uuid_list and statement["uuid"] not in previous_uuid_list:
+                self.statement_uuid_list.append(statement["uuid"])
+                return statement
+
+        # Handle case if no valid statement was found
+        # Try alternative keys or return None depending on your logic
+
+        # return statement that matches key if possible
+        alternative_keys = [
+            f'*{key[1]}',
+            '**'
+        ]
+        for alt_key in alternative_keys:
+            for statement in self.statements_map.get(alt_key, []):
+                if statement["uuid"] not in self.statement_uuid_list and statement["uuid"] not in previous_uuid_list:
+                    LOG.debug(f"{key} not available, using {alt_key} instead.")
+                    self.statement_uuid_list.append(statement["uuid"])
+                    return statement
+        # return None if no statements available
+        LOG.error("No more statements available.")
+        return None
+
+    def build_statement_list(self, num_statements, previous_uuid_list=[]):
         """Generate a list of statements"""
+        # return empty list if no available statements
+        # return short list if not enough available statements
         # TODO: code below works when num_statements is a multiple of 10
         # TODO: fix so it works for num_statements = 5 (pick 50/50)
         # TODO: fix so it works for num_statements = 3 (build list of 4) pick one
@@ -243,7 +290,7 @@ class Statements(AbstractStatements):
                 weights[-1] -= remainder_weight
             chosen_key = random.choices(elements, weights, k=1)[0]
             print(f"statement_index: {statement_index}; chosen_key: {chosen_key}; weights: {weights}; elements: {elements}")
-            statement = self.select_statement(chosen_key)
+            statement = self.select_next_statement(chosen_key)
             self.statement_list.append(statement)
             self.statement_uuid_list.append(statement["uuid"])
             statement_index += 1
@@ -260,11 +307,29 @@ class Statements(AbstractStatements):
 # chosen_element = random.choices(elements, weights, k=1)[0]
 
 if __name__ == "__main__":
+    LOG.setLevel(logging.DEBUG)
     statements = Statements()
     statements.read_from_json("statements.json")
     print(statements.statements[0])
     print(statements.probabilities)
-    statements.build_statement_list(5)
-    statements.build_statement_list(10)
-    statements.build_statement_list(11)
-    statements.build_statement_list(4)
+    print('probabilities keys:', list(statements.probabilities.keys()))
+    max_count = 10
+
+    for _ in range(max_count):
+        for key in list(statements.probabilities.keys()):
+            print(f'key: {key}', end=': ')
+            statement = statements.select_next_statement(key)
+            if statement:
+                print(f'{statement["actionable"]}{statement["group_label"]} {statement["statement"][:70]}')
+            else:
+                print('None')
+                print('resetting statement list')
+                statements.clear_unique_statements_list()
+
+
+    # print('statement list:', statements.statement_list)
+    # print('statement uuid list:', statements.statement_uuid_list)
+    # print('statement actionable list:', [s['actionable'] for s in statements.statement_list])
+    # print('statement group label list:', [s['group_label'] for s in statements.statement_list])
+    # print('statement votes list:', [s['votes'] for s in statements.statement_list])
+    # print('statement statement list:', [s['statement'] for s in statements.statement_list])

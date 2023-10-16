@@ -2,3 +2,6 @@ Flask
 jsonschema
 fastapi
 uvicorn
+numpy
+Jinja2
+PyYAML

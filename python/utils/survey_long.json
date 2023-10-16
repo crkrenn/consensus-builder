@@ -1,0 +1,395 @@
+{
+  'showQuestionNumbers': 'off',
+  'pages': [
+    {
+    name: 'new_statements',
+    title: '\
+Are your perspectives or experiences missing from the conversation? \
+If so, add them in the box below.',
+    elements: [
+      {
+        type: 'html',
+        html: '\
+<p>What makes a good statement?</p>\
+<ul>\
+<li>Stand alone idea</li>\
+<li>Raise new perspectives, experiences or issues</li>\
+<li>Clear & concise (limited to 280 characters each)</li>\
+</ul>\
+<p>A few examples:</p>\
+<ul>\
+<li>Any adult should be able to buy an assault weapon</li>\
+<li>Restrictions on assault weapon ownership will harm the gun industry and lead to job losses</li>\
+<li>Every \person owning or using an assault weapon should carry a license or a permit</li>
+</ul>',
+      },
+      {
+        type: 'comment',
+        name: 'statements',
+        title: "\
+Please remember, statements are\
+displayed randomly and you are\
+not replying directly to other\
+participants' statements. Please\
+separate multipl\e statements with
+a period (".").',
+        maxLength: 2000,
+        rows: 4,
+      }],
+  }],
+  completeText: 'Submit/Skip',
+};
+
+function SurveyStatements({ onComplete }) {
+  function onSurveyCompleted(survey) {
+    // You can send the results to your server here
+    console.log(`Survey results: ${JSON.stringify(survey.data)}`);
+    if (onComplete) {
+      onComplete(survey.data);
+    }
+  }
+
+  return (
+    <div>
+      <Survey.Survey
+        json={surveyJSON}
+        onComplete={onSurveyCompleted}
+      />
+    </div>
+  );
+}
+
+// Adding PropTypes validation for the onComplete prop
+SurveyStatements.propTypes = {
+  onComplete: PropTypes.func,
+};
+
+export default SurveyStatements;
+import React from 'react';
+import PropTypes from 'prop-types'; // Import PropTypes to validate props
+import * as Survey from 'survey-react';
+
+import 'survey-react/survey.css';
+import './SurveyStyles.css';
+
+const surveyJSON = {
+  showQuestionNumbers: 'off',
+  pages: [
+    {
+      name: 'page3',
+      title: "Here are a few topics we're thinking about discussing next:",
+      elements: [
+        {
+          type: 'checkbox',
+          name: 'topics_checkbox',
+          title: 'Which of these topics are most important to you?',
+          colCount: 1,
+          choices: [
+            'Giving a helping hand to groups of people who need it',
+            'Help for people who are having a hard time making ends meet',
+            'How much money the government takes from our paychecks',
+            'Keeping an eye on big companies who run the internet',
+            'Learning and schools',
+            'Making rules about how money can be used during elections',
+            'Making sure everyone has the same rights and chances to succeed',
+            'Rules about who can come and live in our country',
+            'Taking care of our planet',
+            'Women being able to choose if and when they want to have babies',
+          ],
+        },
+      
+        {
+          type: 'comment',
+          name: 'topics_text',
+          title: `Please suggest anything you think should be added. Please
+                separate multiple topics with
+                a period ('.').`,
+          maxLength: 2000,
+          rows: 4,
+        },
+      ],
+    },
+  ],
+  completeText: 'Submit/Skip',
+};
+
+function SurveyTopics({ onComplete }) {
+  function onSurveyCompleted(survey) {
+    console.log(`Survey results: ${JSON.stringify(survey.data)}`);
+    if (onComplete) {
+      onComplete(survey.data);
+    }
+  }
+
+  return (
+    <div>
+      <Survey.Survey json={surveyJSON} onComplete={onSurveyCompleted} />
+    </div>
+  );
+}
+
+SurveyTopics.propTypes = {
+  onComplete: PropTypes.func,
+};
+
+export default SurveyTopics;
+// SurveyDemographics.js
+import React from 'react';
+import PropTypes from 'prop-types';
+import * as Survey from 'survey-react';
+
+import 'survey-react/survey.css';
+import './SurveyStyles.css';
+
+const surveyJSON = {
+  title: "Please answer the following questions about yourself",
+  showQuestionNumbers: "off", // Add this line to remove question numbers
+  description: `We'd really appreciate it if you could answer a few questions
+  about yourself.  It makes sure
+  that the opinions of a few people do not control the results.
+  We want to know what everyone thinks, not just a few people. Thank you!`,
+  pages: [
+    {
+      name: "page1",
+      elements: [
+        {
+          type: "text",
+          name: "emailAddress",
+          title: "What is your email address?",
+          description: `Can we have your email? We want to work on more topics like
+          this and tell Congress what most people think. Don't worry,
+          we won't give your email to anyone unless you say it's okay.`,
+          validators: [
+            {
+              type: "email",
+              text: "Please enter a valid email address or leave this field blank",
+            },
+          ],
+        },
+        {
+          "type": "text",
+          "name": "firstName",
+          "title": "What is your first name?",
+          "description": `We want to address you by name
+          rather than a generic email greeting.`,
+        },
+        {
+          "type": "text",
+          "name": "lastName",
+          "title": "What is your last name?",
+          "description": `Having your full name will help us help you
+          communicate with Congress, as well as let us know if we've had the
+          pleasure of meeting before.`
+        },
+        {
+          type: "radiogroup",
+          name: "personalGunOwnership",
+          title: "Do you currently own a gun?",
+          choices: [
+            "A. Yes",
+            "B. No",
+          ],
+        },
+        {
+          type: "radiogroup",
+          name: "householdGunOwnership",
+          title: "Do any individuals you live with currently own a gun?",
+          choices: [
+            "A. Yes",
+            "B. No",
+          ],
+        },
+        {
+          "type": "radiogroup",
+          "name": "politicalAffiliation",
+          "title": "In politics today, do you consider yourself a Republican, Democrat, an independent or something else?",
+          "choices": [
+            "Republican",
+            "Democrat",
+            "Independent",
+            "Something else"
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "politicalAffiliationLean",
+          "visibleIf": "{politicalAffiliation} = 'Independent' or {politicalAffiliation} = 'Something else'",
+          "title": "As of today, do you lean more to the Republican Party or more to the Democratic Party?",
+          "choices": [
+            "Republican Party",
+            "Democratic Party"
+          ]
+        },
+        {
+          type: "text",
+          name: "zipCode",
+          title: "What is your zip code?",
+          validators: [
+            {
+              type: "regex",
+              text: "Please enter a valid 5 digit US zip code or leave this field blank",
+              regex: "^[0-9]{5}$",
+            },
+          ],
+        },
+        {
+          type: "radiogroup",
+          name: "ageRange",
+          title: "What age range do you fall into? Please select the option that corresponds to your current age range.",
+          choices: [
+            "A. Under 18 years old",
+            "B. 18-24 years old",
+            "C. 25-34 years old",
+            "D. 35-44 years old",
+            "E. 45-54 years old",
+            "F. 55-64 years old",
+            "G. 65 years and older"
+          ]
+        },
+        {
+          type: "radiogroup",
+          name: "educationLevel",
+          title: "What is your highest level of completed education? Please select the option that best describes your educational background.",
+          choices: [
+            "A. No formal education",
+            "B. Some high school",
+            "C. High school graduate or equivalent (e.g., GED)",
+            "D. Some college or vocational training",
+            "E. Associate's degree (e.g., AA, AS)",
+            "F. Bachelor's degree (e.g., BA, BS)",
+            "G. Postgraduate or professional degree (e.g., MA, MS, PhD, MD, JD)"
+          ]
+        },
+        {
+          type: "radiogroup",
+          name: "sexAtBirth",
+          title: "Were you born male or female?",
+          choices: [
+            "A. Male",
+            "B. Female",
+          ],
+        },
+        {
+          type: "radiogroup",
+          name: "genderIdentity",
+          title: "Do you describe yourself as a man, a woman, or in some other way?",
+          choices: [
+            "A. Man",
+            "B. Woman",
+            "C. In some other way",
+          ],
+        },
+
+      ],
+    },
+  ],
+};
+
+function SurveyDemographics({ onComplete, onValueChanged }) {
+
+  function handleValueChanged(_, options) {
+    if (onValueChanged) {
+      onValueChanged(options);
+    }
+  }
+
+  function handleComplete(survey) {
+    if (onComplete) {
+      onComplete(survey.data);
+    }
+  }
+
+  return (
+    <div>
+      <Survey.Survey
+        json={surveyJSON}
+        onComplete={handleComplete}
+        onValueChanged={handleValueChanged}
+      />
+    </div>
+  );
+}
+
+SurveyDemographics.propTypes = {
+  onComplete: PropTypes.func,
+  onValueChanged: PropTypes.func,
+};
+
+export default SurveyDemographics;// SurveySharing.js
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types'; // Import the prop-types package
+import * as Survey from 'survey-react';
+
+import 'survey-react/survey.css';
+import './SurveyStyles.css';
+
+function SurveyTopics({ onComplete }) {
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    const surveyJSON = {
+        title: "You are finished. Thank you for participating",
+        description: "Please share our site with friends and family. "
+        + "Sharing with at least two people will give us a chance to grow!",
+        showQuestionNumbers: "off", // Add this line to remove question numbers
+        pages: [{
+            name: "page1",
+            elements: [
+                {
+                    type: "comment",
+                    name: "sharing",
+                    titleLocation: "hidden", // This hides the title/label
+                    rows: isMobile ? 17 : 10, // Different number of rows for mobile and desktop
+                }]
+            }],
+            completeText: "Copy to Clipboard"
+        };
+
+        function onSurveyCompleted(survey) {
+            // You can send the results to your server here
+            console.log("Survey results: " + JSON.stringify(survey.data));
+            if (onComplete) {
+                onComplete(survey.data['sharing']);
+            }
+        }
+        const survey = new Survey.Model(surveyJSON);
+//I just used democracyGPS to help find COMMON GROUND
+// on assault weapon regulations.  PASS BETTER LAWS FASTER
+        survey.data = {
+            sharing: "I just used democracyGPS to help find common ground on assault weapon "
+            + "regulations and to pass better laws faster. \n\ndemocracyGPS has simple survey tools to gather your "
+            + "views, along with the thoughts of many others, to find common ground. "
+            + "democracyGPS also has tools to quickly send messages to Congress, encouraging "
+            + "them to consider the ideas that many people agree on. "
+            + "\n\nCheck it out at https://democracygps.org"
+        };
+        return (
+            <div>
+            <Survey.Survey
+            model={survey}
+            onComplete={onSurveyCompleted}
+            />
+            </div>
+            );
+        }
+
+        // Add prop-types validation
+        SurveyTopics.propTypes = {
+            onComplete: PropTypes.func, // Specifies that onComplete should be a function
+        };
+
+        export default SurveyTopics;
+
+
+}

@@ -1,0 +1,34 @@
+{
+  "showQuestionNumbers": "off",
+  "pages": [
+    {
+      "name": "new_statements",
+      "title": "Are your perspectives or experiences missing from the conversation? If so, add them in the box below.",
+      "elements": [
+        {
+          "type": "html",
+          "html": "<p>What makes a good statement?</p>\
+                   <ul>\
+                     <li>Stand alone idea</li>\
+                     <li>Raise new perspectives, experiences, or issues</li>\
+                     <li>Clear & concise (limited to 280 characters each)</li>\
+                   </ul>\
+                   <p>A few examples:</p>\
+                   <ul>\
+                     <li>Any adult should be able to buy an assault weapon</li>\
+                     <li>Restrictions on assault weapon ownership will harm the gun industry and lead to job losses</li>\
+                     <li>Every person owning or using an assault weapon should carry a license or a permit</li>\
+                   </ul>"
+        },
+        {
+          "type": "comment",
+          "name": "statements",
+          "title": "Please remember, statements are displayed randomly, and you are not replying directly to other participants' statements. Please separate multiple statements with a period ('.')",
+          "maxLength": 2000,
+          "rows": 4
+        }
+      ]
+    }
+  ],
+  "completeText": "Submit/Skip"
+}

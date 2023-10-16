@@ -12,6 +12,7 @@ import sys
 
 # third-party packages
 import jsonschema
+import numpy as np
 
 logging.basicConfig(level=logging.INFO)
 LOG = logging.getLogger(__name__)
@@ -31,16 +32,14 @@ class AbstractStatements(ABC):
         pass
 
     def __init__(self):
-        self.statements = []
-        self.probabilities = {}
-        self.actionable_keys = []
-        self.group_label_keys = []
-        self.statements_map = {}
-        self.statement_list = []
-        self.statement_uuid_list = []
+        pass
 
     @abstractmethod
     def read_from_json(self):
+        pass
+
+    @abstractmethod
+    def get_statement_list(self):
         pass
 
 class Statements(AbstractStatements):
@@ -88,6 +87,18 @@ class Statements(AbstractStatements):
             "pattern": "^[0-9.]+$"
         }
     }
+
+    statements = []
+    probabilities = {}
+    actionable_keys = []
+    group_label_keys = []
+    statements_map = {}
+
+    def __init__(self):
+        super().__init__()
+        self.filename = None
+        self.statement_list = []
+        self.statement_uuid_list = []
 
     def _validate_probability_keys(self):
         """Validate the probability keys"""
@@ -201,6 +212,9 @@ class Statements(AbstractStatements):
             }
             }
         """
+        if self.filename == filename:
+            return
+        self.filename = filename
         with open(filename, 'r') as file:
             data = json.load(file)
         self.statements = data["statements"]
@@ -210,13 +224,21 @@ class Statements(AbstractStatements):
         self._validate_statements_and_probabilities()
         self._build_statements_map()
 
-    def clear_unique_statements_list(self):
+    def _clear_unique_statements_list(self):
         """Clear the list of previously selected statements"""
         self.statement_uuid_list = []
         return True  # Indicate that the list has been cleared successfully
 
-    def select_next_statement(self, key, previous_uuid_list=None):
-        """Pick a new statement from a statement set"""
+    def _select_next_statement(self, key, previous_uuid_list=None):
+        """
+        Pick a new statement from a statement set
+
+        Picks the first unused statement from the statement set, which is
+        sorted elsewhere (e.g. by votes).
+
+        Will pick an alternative key if the key is not found.
+        First will look for same group_label, then same actionable, then any.
+        """
         if previous_uuid_list is None:
             previous_uuid_list = []
 
@@ -236,6 +258,7 @@ class Statements(AbstractStatements):
         # return statement that matches key if possible
         alternative_keys = [
             f'*{key[1]}',
+            f'{key[0]}*',
             '**'
         ]
         for alt_key in alternative_keys:
@@ -248,88 +271,71 @@ class Statements(AbstractStatements):
         LOG.error("No more statements available.")
         return None
 
-    def build_statement_list(self, num_statements, previous_uuid_list=[]):
-        """Generate a list of statements"""
-        # return empty list if no available statements
-        # return short list if not enough available statements
-        # TODO: code below works when num_statements is a multiple of 10
-        # TODO: fix so it works for num_statements = 5 (pick 50/50)
-        # TODO: fix so it works for num_statements = 3 (build list of 4) pick one
-                # "YL": 0.1,
-                # "YR": 0.1,
-                # "*L": 0.1,
-                # "*R": 0.1,
-                # "YC": 0.2,
-                # "*C": 0.2,
-                # "**": 0.2
-        #
+    def _build_statement_list(
+            self,
+            num_statements,
+            previous_uuid_list=[],
+            clear_unique_statements=True):
+        """Generate a list of statements num_statements long"""
         self.statement_list = []
-        self.statement_uuid_list = []
-        key_list = list(self.probabilities.keys())
-        value_list = list(self.probabilities.values())
-        statement_index = 0
-        probability_index = 0
-        probability_per_statement = 1 / num_statements
-        elements = []
-        weights = []
-        while statement_index < num_statements:
-            elements.append(key_list[probability_index])
-            weights.append(value_list[probability_index])
-            probability_index += 1
-            sum_of_weights = sum(weights)
-            remainder_key = None
-            while sum_of_weights < probability_per_statement:
-                probability_index += 1
-                elements.append(key_list[probability_index])
-                weights.append(value_list[probability_index])
-                probability_index += 1
-                sum_of_weights = sum(weights)
-            if sum_of_weights > probability_per_statement:
-                remainder_weight = sum_of_weights - probability_per_statement
-                remainder_key = elements[-1]
-                weights[-1] -= remainder_weight
-            chosen_key = random.choices(elements, weights, k=1)[0]
-            print(f"statement_index: {statement_index}; chosen_key: {chosen_key}; weights: {weights}; elements: {elements}")
-            statement = self.select_next_statement(chosen_key)
+        if clear_unique_statements:
+            self._clear_unique_statements_list()
+        key_list = []
+        while len(key_list) < num_statements:
+            key_list.extend(np.random.choice(
+                list(self.probabilities.keys()),
+                size=len(self.probabilities),
+                replace=False,
+                p=list(self.probabilities.values())))
+        key_list = key_list[:num_statements]
+        for key in key_list:
+            statement = self._select_next_statement(
+                key,
+                previous_uuid_list=previous_uuid_list)
+            if statement is None:
+                break
             self.statement_list.append(statement)
-            self.statement_uuid_list.append(statement["uuid"])
-            statement_index += 1
-            if remainder_key:
-                elements = [remainder_key]
-                weights = [remainder_weight]
-            else:
-                elements = []
-                weights = []
 
-# elements = ['a', 'b', 'c', 'd']
-# weights = [0.1, 0.2, 0.3, 0.4]
-
-# chosen_element = random.choices(elements, weights, k=1)[0]
+    def get_statement_list(self, num_statements):
+        """Return a list of statements num_statements long"""
+        self._build_statement_list(num_statements)
+        return [s['statement'] for s in self.statement_list]
+# class JS_Survey(
 
 if __name__ == "__main__":
+    # @TODO: move to tests
     LOG.setLevel(logging.DEBUG)
     statements = Statements()
     statements.read_from_json("statements.json")
     print(statements.statements[0])
     print(statements.probabilities)
     print('probabilities keys:', list(statements.probabilities.keys()))
+    print('test')
     max_count = 10
-
     for _ in range(max_count):
         for key in list(statements.probabilities.keys()):
             print(f'key: {key}', end=': ')
-            statement = statements.select_next_statement(key)
+            statement = statements._select_next_statement(key)
             if statement:
                 print(f'{statement["actionable"]}{statement["group_label"]} {statement["statement"][:70]}')
             else:
                 print('None')
                 print('resetting statement list')
-                statements.clear_unique_statements_list()
+                statements._clear_unique_statements_list()
 
-
-    # print('statement list:', statements.statement_list)
-    # print('statement uuid list:', statements.statement_uuid_list)
-    # print('statement actionable list:', [s['actionable'] for s in statements.statement_list])
-    # print('statement group label list:', [s['group_label'] for s in statements.statement_list])
-    # print('statement votes list:', [s['votes'] for s in statements.statement_list])
-    # print('statement statement list:', [s['statement'] for s in statements.statement_list])
+    element_lengths = [5, 4, 10, 6, 12, 50, 70]
+    for element_length in element_lengths:
+        print()
+        print(f"building {element_length} unit statement list")
+        statements._build_statement_list(element_length)
+        # print('statement list:', statements.statement_list)
+        # print('statement uuid list:', statements.statement_uuid_list)
+        print()
+        print(f"          element_length: {element_length}")
+        print(f"length of statement list: {len(statements.statement_list)}")
+        print('statement actionable list:', [s['actionable'] for s in statements.statement_list])
+        print('statement group label list:', [s['group_label'] for s in statements.statement_list])
+        print('statement votes list:', [s['votes'] for s in statements.statement_list])
+    elements = 5
+    print(f"{elements} unit statement list:")
+    print(statements.get_statement_list(elements))

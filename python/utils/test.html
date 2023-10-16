@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Survey Page</title>
+    <script src="https://surveyjs.io/WidgetEmbed/jq/xV6pLcB" type="text/javascript"></script>
+</head>
+
+<body>
+    <h1>Survey Page</h1>
+    <div id="surveyContainer"></div>
+    <script>
+        // Wrap your code in an event handler that runs when the DOM is ready
+        document.addEventListener("DOMContentLoaded", function () {
+            Survey.StylesManager.applyTheme("modern");
+            var surveyJSON = {
+                "pages": [{
+                        "elements": [{
+                            "name": "name",
+                            "title": "Your Name",
+                            "type": "text"
+                        }],
+                        "name": "page1"
+                    },
+                    {
+                        "elements": [{
+                            "choices": ["Beginner", "Intermediate", "Advanced"],
+                            "name": "experience",
+                            "title": "Your Experience",
+                            "type": "radiogroup"
+                        }],
+                        "name": "page2"
+                    }
+                ],
+                "title": "Simple Survey"
+            };
+
+            var survey = new Survey.Model(surveyJSON);
+
+            survey.onComplete.add(function (result) {
+                // Handle survey completion (e.g., send data to the server)
+                console.log("Survey data:", result.data);
+            });
+
+            survey.render("surveyContainer");
+        });
+    </script>
+</body>
+
+</html>

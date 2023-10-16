@@ -1,0 +1,21 @@
+import React, { Component } from 'react';
+import * as Survey from 'survey-react';
+import 'survey-react/survey.css'; // Import the default CSS styles
+
+class SurveyComponent extends Component {
+  render() {
+    // Define the survey JSON with two questions: Name and Email
+    const surveyJSON = (
+{{{survey_json}}}
+);
+
+    return (
+      <div>
+        <Survey.Survey json={surveyJSON} />
+      </div>
+    );
+  }
+}
+
+export default SurveyComponent;
+

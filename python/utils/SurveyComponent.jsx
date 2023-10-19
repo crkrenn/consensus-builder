@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as Survey from 'survey-react';
 import 'survey-react/survey.css'; // Import the default CSS styles
+import './SurveyStyles.css';
 
 class SurveyComponent extends Component {
   render() {
@@ -9,6 +10,56 @@ class SurveyComponent extends Component {
 {
     "showQuestionNumbers": false,
     "pages": [
+        {
+            "name": "statement0",
+            "elements": [
+                {
+                    "type": "html",
+                    "name": "statement",
+                    "html": "This is a statement"
+                },
+                {
+                    "type": "imagepicker",
+                    "name": "statement0",
+                    "colCount": 3,
+                    "showLabel": false,
+                    "choices": [
+                        {
+                            "value": "agree",
+                            "imageLink": "https://guns.democracygps.org/images/agree.png"
+                        },
+                        {
+                            "value": "disagree",
+                            "imageLink": "https://guns.democracygps.org/images/disagree.png"
+                        },
+                        {
+                            "value": "pass",
+                            "imageLink": "https://guns.democracygps.org/images/pass.png"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "statements",
+            "elements": [
+                {
+                    "type": "html",
+                    "name": "statement",
+                    "html": "This is a statement"
+                },
+                {
+                    "type": "radiogroup",
+                    "name": "feedback",
+                    "title": "Please select your response:",
+                    "choices": [
+                        "Agree",
+                        "Disagree",
+                        "Pass"
+                    ]
+                }
+            ]
+        },
         {
             "name": "new_statements",
             "title": "Are your perspectives or experiences missing from the conversation? If so, add them in the box below.",
